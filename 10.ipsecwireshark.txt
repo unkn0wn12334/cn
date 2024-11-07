@@ -1,0 +1,106 @@
+Step 1: Configure IPsec on Device A and Device B
+On Both Devices (Device A and Device B):
+
+Install StrongSwan for IPsec:
+bash
+Copy code
+sudo apt update
+sudo apt install strongswan
+Edit IPsec Configuration on Each Device:
+
+Open the file /etc/ipsec.conf on both devices and add the IPsec configuration.
+Configuration for Device A:
+Replace <IP_of_Device_A> with the IP address of Device A and <IP_of_Device_B> with the IP address of Device B.
+(Yes, the commands ifconfig or ip addr show will show you both the IP addresses and the subnet masks associated with each network interface on a device.)
+
+conf
+Copy code
+config setup
+  charondebug="ike 2, knl 2, cfg 2"
+
+conn myconnection
+  authby=secret
+  left=<IP_of_Device_A>
+  leftsubnet=192.168.1.0/24     # Replace with Device A's subnet
+  right=<IP_of_Device_B>
+  rightsubnet=192.168.2.0/24    # Replace with Device B's subnet
+  ike=aes256-sha256-modp1024    # IKE Phase 1 settings
+  esp=aes256-sha256-modp1024    # ESP and AH Phase 2 settings
+  keyexchange=ikev2
+  type=tunnel
+  auto=start
+Configuration for Device B:
+This will be the same as Device A, but left and right will be reversed:
+
+conf
+Copy code
+config setup
+  charondebug="ike 2, knl 2, cfg 2"
+
+conn myconnection
+  authby=secret
+  left=<IP_of_Device_B>
+  leftsubnet=192.168.2.0/24     # Device B's subnet
+  right=<IP_of_Device_A>
+  rightsubnet=192.168.1.0/24    # Device A's subnet
+  ike=aes256-sha256-modp1024
+  esp=aes256-sha256-modp1024
+  keyexchange=ikev2
+  type=tunnel
+  auto=start
+Set Up Shared Secrets:
+
+Edit /etc/ipsec.secrets on both devices to define a shared key:
+conf
+Copy code
+<IP_of_Device_A> <IP_of_Device_B> : PSK "yoursharedsecret"
+Step 2: Restart the IPsec Service on Both Devices
+Run the following command on both Device A and Device B:
+
+bash
+Copy code
+sudo systemctl restart strongswan
+Step 3: Verify IPsec Connection
+Check IPsec Status on Each Device:
+
+On both Device A and Device B, check the IPsec tunnel status:
+bash
+Copy code
+sudo ipsec statusall
+Generate Traffic from Device A to Device B to Trigger the IPsec Tunnel:
+
+On Device A, try pinging Device B’s IP:
+bash
+Copy code
+ping <IP_of_Device_B>
+Step 4: Capture IPsec Packets on Device A (or a Monitoring Device)
+Start Wireshark on Device A or Another Device on the Same Network:
+
+Set the capture filter to capture IPsec ESP and AH packets:
+For ESP packets: ip.proto == 50
+For AH packets: ip.proto == 51
+Analyze the Packets:
+
+Look for ESP and AH packets to confirm the IPsec encryption is in place.
+.......................................................................................................................
+What is IPsec, and what does it do?
+
+IPsec (Internet Protocol Security) is a protocol suite that provides data authentication, integrity, and confidentiality over IP networks​(EXPT_10).
+What are ESP and AH in IPsec?
+
+ESP (Encapsulating Security Payload) provides confidentiality, while AH (Authentication Header) provides authentication and integrity​(EXPT_10).
+What is ISAKMP, and why is it important for IPsec?
+
+ISAKMP (Internet Security Association and Key Management Protocol) manages security associations and key exchanges essential for establishing IPsec connections​(EXPT_10).
+What are the differences between IPsec transport mode and tunnel mode?
+
+In transport mode, only the IP payload is encrypted/authenticated. In tunnel mode, the entire IP packet is encapsulated and encrypted​(EXPT_10).
+What are some applications of IPsec?
+
+IPsec is commonly used in VPNs to secure data transmitted over the internet​(EXPT_10).
+What ports and protocols are used by IPsec?
+
+IPsec uses UDP port 500 for ISAKMP and IP protocols 50 (ESP) and 51 (AH)​(EXPT_10).
+How does IPsec prevent replay attacks?
+
+IPsec uses sequence numbers and anti-replay windows to protect against replay attacks​(EXPT_10).

@@ -1,0 +1,21 @@
+What is SSL, and why is it important?
+
+SSL (Secure Sockets Layer) is a protocol that provides privacy, authentication, and data integrity in internet communications. It's crucial because it encrypts sensitive data, preventing unauthorized access​(EXPT_8).
+How does the SSL/TLS handshake process work?
+
+The handshake involves steps like exchanging hello messages, server authentication through certificates, key exchange, and switching to an encrypted connection​(EXPT_8).
+What are the main components of SSL?
+
+SSL consists of authentication, encryption, and data integrity, each ensuring the safety of transmitted data​(EXPT_8).
+On which layer of the OSI model does SSL operate?
+
+SSL operates at the transport layer (Layer 4), securing TCP connections​(EXPT_8).
+What is the purpose of the "Client Hello" message in the SSL handshake?
+
+The Client Hello message initiates the SSL handshake and includes information like supported cipher suites and compression methods​(EXPT_8).
+Why was SSL replaced by TLS?
+
+SSL was replaced by TLS to address vulnerabilities and improve security; TLS provides stronger encryption and better data integrity verification​(EXPT_8).
+What are common SSL/TLS attacks, and how does SSL prevent them?
+
+Common attacks include man-in-the-middle attacks and replay attacks. SSL mitigates these by using authentication and encryption​(EXPT_8).

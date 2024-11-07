@@ -1,0 +1,67 @@
+import ipaddress
+import math
+
+def subnetting(ip_address, subnet_count):
+    # Convert the IP address string to an IPv4 object
+    network = ipaddress.IPv4Network(ip_address, strict=False)
+    
+    # Number of bits required to create the number of subnets
+    bits_needed = math.ceil(math.log(subnet_count, 2))
+    
+    # New prefix length (original network bits + bits borrowed for subnets)
+    new_prefix_length = network.prefixlen + bits_needed
+    
+    # Calculate the subnet mask for the new prefix length
+    subnet_mask = ipaddress.IPv4Network(f'0.0.0.0/{new_prefix_length}').netmask
+    
+    # Create the subnets
+    subnets = list(network.subnets(new_prefix=new_prefix_length))
+    
+    print(f"Original Network: {network}")
+    print(f"Number of Subnets: {subnet_count}")
+    print(f"New Subnet Mask: {subnet_mask}")
+    print("\nSubnets:")
+    for i, subnet in enumerate(subnets, 1):
+        print(f"Subnet {i}: {subnet}")
+    
+    return subnets
+
+def main():
+    # Input the IP address and subnet count from the user
+    ip_address = input("Enter the IP address with prefix (e.g., 192.168.1.0/24): ")
+    subnet_count = int(input("Enter the number of required subnets: "))
+    
+    # Perform subnetting and print results
+    subnetting(ip_address, subnet_count)
+
+if __name__ == "__main__":
+    main()
+.............................................................................................
+
+What is the aim of this experiment?
+
+Answer: The aim is to demonstrate subnetting and calculate subnet masks for dividing a large network into smaller subnets.
+What is subnetting?
+
+Answer: Subnetting is the process of dividing a large network into smaller networks or subnets. This improves network management, reduces traffic, and enhances security.
+What is an IP address, and how is it structured?
+
+Answer: An IP address is a 32-bit number in IPv4, divided into four octets. It consists of a network component, identifying the network, and a host component, identifying individual devices.
+What is a subnet mask, and why is it used?
+
+Answer: A subnet mask is a 32-bit number used with an IP address to separate the network portion from the host portion. It helps identify the network and the hosts within a network.
+Explain the significance of subnetting in network management.
+
+Answer: Subnetting allows large networks to be divided into smaller, manageable sections, reducing congestion and collision. It also enhances security and optimizes IP address allocation.
+What are the default subnet masks for Class A, B, and C networks?
+
+Answer: The default subnet masks are:
+Class A: 255.0.0.0
+Class B: 255.255.0.0
+Class C: 255.255.255.0
+What is the network ID and broadcast address in subnetting?
+
+Answer: The network ID is the first address of a subnet, used to identify the subnet. The broadcast address is the last address of the subnet, allowing communication with all hosts within that subnet.
+What is the difference between a direct broadcast and a full broadcast?
+
+Answer: A direct broadcast is the last address within a subnet, heard by all hosts in that subnet. A full broadcast (255.255.255.255) is heard by all IP hosts across the network, but routers generally don’t propagate it across segments.

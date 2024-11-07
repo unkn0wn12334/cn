@@ -1,0 +1,65 @@
+import socket
+
+def dns_lookup():
+    print("DNS Lookup Tool")
+    print("1. Enter URL to find IP address")
+    print("2. Enter IP address to find URL (Reverse DNS)")
+    choice = input("Enter your choice (1/2): ")
+
+    if choice == '1':
+        url = input("Enter the URL: ")
+        try:
+            ip_address = socket.gethostbyname(url)
+            print(f"The IP address of {url} is {ip_address}")
+        except socket.gaierror:
+            print(f"Unable to resolve URL: {url}")
+
+    elif choice == '2':
+        ip_address = input("Enter the IP address: ")
+        try:
+            url = socket.gethostbyaddr(ip_address)
+            print(f"The URL associated with IP {ip_address} is {url[0]}")
+        except socket.herror:
+            print(f"Unable to find hostname for IP: {ip_address}")
+
+    else:
+        print("Invalid choice. Please enter 1 or 2.")
+
+if __name__ == "__main__":
+    dns_lookup()
+
+
+
+
+
+Enter the URL: www.google.com
+The IP address of www.google.com is 142.250.180.4
+Option 2: Enter IP address:
+
+csharp
+Copy code
+Enter the IP address: 142.250.180.4
+The URL associated with IP 142.250.180.4 is lhr25s01-in-f4.1e100.net
+
+............................................................................................
+What is DNS, and why is it needed?
+
+DNS (Domain Name System) maps domain names to IP addresses, making it easier for users to access websites without remembering numeric IP addresses​(EXPT_11 (1)).
+Explain the hierarchical structure of the Domain Name System.
+
+DNS uses a hierarchical structure with multiple levels, including root, top-level domains (TLDs), second-level domains, and subdomains​(EXPT_11 (1)).
+What is the difference between a flat and hierarchical namespace?
+
+A flat namespace assigns names without structure, while a hierarchical namespace organizes names in levels, reducing ambiguity and enabling scalability​(EXPT_11 (1)).
+What is a DNS resolver?
+
+A DNS resolver is a client that queries DNS servers to resolve domain names into IP addresses or vice versa​(EXPT_11 (1)).
+What is recursive resolution in DNS?
+
+Recursive resolution involves a DNS server querying other DNS servers to provide a final answer to the client without requiring further requests from the client​(EXPT_11 (1)).
+What are the primary record types used in DNS?
+
+Common record types include A (Address), MX (Mail Exchange), NS (Name Server), and PTR (Pointer) records​(EXPT_11 (1)).
+How does DNS caching improve efficiency?
+
+DNS caching stores query results temporarily, allowing faster access to previously resolved domain names without repeated lookups​(EXPT_11 (1)).

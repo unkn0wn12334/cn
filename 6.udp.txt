@@ -1,0 +1,118 @@
+import socket
+
+def udp_file_receiver():
+    # Create a UDP socket
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+    # Bind the socket to the port
+    server_address = ('localhost', 65432)
+    server_socket.bind(server_address)
+    print("Server is waiting to receive the file...")
+
+    # File to store received data
+    filename = 'received_file.bin'  # Use appropriate extension based on file type
+    with open(filename, 'wb') as file:
+        while True:
+            # Receive data from the client
+            data, client_address = server_socket.recvfrom(4096)
+            if data == b'EOF':  # Client will send 'EOF' when done
+                print("File transfer complete.")
+                break
+            file.write(data)
+
+    print(f"File saved as {filename} from {client_address}")
+
+if __name__ == "__main__":
+    udp_file_receiver()
+
+#client code-->
+import socket
+import os
+
+def udp_file_sender(file_path):
+    # Create a UDP socket
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+    # Server address (assuming server is running on the same machine, localhost)
+    server_address = ('localhost', 65432)
+
+    # Send the file in chunks
+    with open(file_path, 'rb') as file:
+        while True:
+            # Read the file in chunks of 4096 bytes
+            chunk = file.read(4096)
+            if not chunk:
+                break
+            client_socket.sendto(chunk, server_address)
+    
+    # Send EOF to indicate the end of the file transfer
+    client_socket.sendto(b'EOF', server_address)
+
+    print("File sent successfully.")
+
+if __name__ == "__main__":
+    # Provide the path to the file you want to send
+    file_path = 'your_file_path_here'  # Replace with the actual file path
+    udp_file_sender(file_path)
+. Set Up Two Python Files:
+Create a directory and navigate to it:
+
+bash
+Copy code
+mkdir udp_file_transfer
+cd udp_file_transfer
+Create the UDP Server file (udp_server.py):
+
+bash
+Copy code
+nano udp_server.py
+Paste the server code from above into this file.
+
+Create the UDP Client file (udp_client.py):
+
+bash
+Copy code
+nano udp_client.py
+Paste the client code from above into this file, and modify the file_path variable to point to the file you want to transfer (e.g., a text, audio, video file).
+
+2. Running the UDP Server and Client on Ubuntu:
+Open Two Separate Terminal Windows:
+Run the UDP Server in One Terminal:
+
+In the first terminal, navigate to the directory where your files are saved.
+Run the UDP server first:
+bash
+Copy code
+python3 udp_server.py
+The server will start and wait for a file to be sent from the client.
+Run the UDP Client in Another Terminal:
+
+In a second terminal, navigate to the same directory.
+Run the UDP client to send the file:
+bash
+Copy code
+python3 udp_client.py
+Make sure the file you want to transfer is accessible, and the file_path in udp_client.py points to it.
+.................................................................
+
+What is UDP, and how does it differ from TCP?
+
+UDP is a connectionless protocol that does not guarantee message delivery, making it faster than TCP, which is connection-oriented and ensures reliable data transmission.
+In what situations is UDP preferred over TCP?
+
+UDP is preferred for applications that require speed over reliability, such as streaming media (audio, video), where minor data loss is acceptable.
+How does the absence of error-checking in UDP affect its performance?
+
+UDP’s lack of error-checking and flow control reduces overhead, allowing faster data transmission but with potential for data loss or duplication.
+Describe a typical UDP socket communication flow for a client-server model.
+
+The client creates a socket, prepares a datagram, and sends it to the server’s address. The server, listening on a port, receives the datagram and processes it as necessary.
+What are some common functions used in UDP socket programming?
+
+Functions include socket() for creating a socket, sendto() for sending data, recvfrom() for receiving data, and bind() to associate the server socket with an address and port.
+Can multiple clients connect to the same UDP socket?
+
+Yes, multiple clients can send datagrams to the same UDP socket on the server, as UDP is connectionless.
+Why might data arrive out of order in UDP, and how can applications handle it?
+
+Since UDP does not establish a connection, data packets may arrive out of order. Applications may implement sequence numbers or other mechanisms to manage order if required

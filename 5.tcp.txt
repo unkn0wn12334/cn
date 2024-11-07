@@ -1,0 +1,169 @@
+
+import socket
+
+def start_server():
+    # Create a TCP/IP socket
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    # Bind the socket to the port
+    server_address = ('localhost', 65432)
+    server_socket.bind(server_address)
+
+    # Listen for incoming connections
+    server_socket.listen(1)
+    print("Server is waiting for a connection...")
+
+    # Accept the connection
+    connection, client_address = server_socket.accept()
+    try:
+        print(f"Connection established with {client_address}")
+        
+        # Receive and respond with 'Hello' message
+        message = connection.recv(1024).decode('utf-8')
+        print(f"Client: {message}")
+        connection.sendall(b"Hello from the server!")
+
+        # Receive file from the client
+        with open('received_file.txt', 'wb') as f:
+            print("Receiving file...")
+            while True:
+                data = connection.recv(1024)
+                if not data:
+                    break
+                f.write(data)
+            print("File received successfully!")
+
+    finally:
+        connection.close()
+
+if __name__ == "__main__":
+    start_server()
+
+
+import socket
+
+def start_client():
+    # Create a TCP/IP socket
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    # Connect to the server
+    server_address = ('localhost', 65432)
+    client_socket.connect(server_address)
+
+    try:
+        # Send a "Hello" message to the server
+        client_socket.sendall(b"Hello from the client!")
+        
+        # Receive a response from the server
+        message = client_socket.recv(1024).decode('utf-8')
+        print(f"Server: {message}")
+
+        # Send file to the server
+        filename = 'sample_file.txt'  # Replace with your file
+        with open(filename, 'rb') as f:
+            print("Sending file...")
+            while True:
+                data = f.read(1024)
+                if not data:
+                    break
+                client_socket.sendall(data)
+            print("File sent successfully!")
+        
+    finally:
+        client_socket.close()
+
+if __name__ == "__main__":
+    start_client()
+Ubuntu typically comes with Python pre-installed. To verify, run:
+
+bash
+Copy code
+python3 --version
+If Python is not installed, install it using:
+
+bash
+Copy code
+sudo apt update
+sudo apt install python3
+2. Set Up Two Python Files:
+Open the Terminal and navigate to your project directory (or create one):
+
+bash
+Copy code
+mkdir my_socket_project
+cd my_socket_project
+Create the two Python files:
+
+One for the server (tcp_server.py):
+bash
+Copy code
+nano tcp_server.py
+One for the client (tcp_client.py):
+bash
+Copy code
+nano tcp_client.py
+Add the server code to tcp_server.py:
+
+Open tcp_server.py using the nano text editor (or any editor you prefer) and paste the server code.
+Add the client code to tcp_client.py similarly.
+
+3. Running the Server and Client:
+Open Two Separate Terminal Windows:
+Run the Server in One Terminal:
+
+Open a terminal and navigate to the directory where your Python files are stored.
+Run the server first:
+bash
+Copy code
+python3 tcp_server.py
+The server will start and wait for client connections.
+Run the Client in Another Terminal:
+
+Open another terminal (use Ctrl+Shift+T to open a new terminal tab or open a new terminal window).
+Navigate to the same directory and run the client:
+bash
+Copy code
+python3 tcp_client.py
+The client will connect to the server, exchange "Hello" messages, and perform file transfer if you have that functionality.
+Example of Terminal Windows:
+Terminal 1: Running the server.
+Terminal 2: Running the client.
+
+..................................................................................................................
+What is a socket, and what types of sockets are there?
+
+A socket is an endpoint for inter-process communication over a network. Common types include Stream Sockets (TCP), Datagram Sockets (UDP), Raw Sockets, and Sequenced Packet Sockets.
+Explain the difference between a connection-oriented and a connectionless communication system.
+
+Connection-oriented systems, like TCP, require establishing a connection before data transfer, ensuring reliable delivery. Connectionless systems, like UDP, do not establish a connection and do not guarantee data delivery.
+What role does the port number play in socket programming?
+
+The port number helps identify specific processes on a machine for incoming and outgoing network connections, enabling multiplexing of communication over the same IP address.
+Describe the steps involved in establishing a socket on the server side.
+
+The server creates a socket, binds it to an IP address and port, listens for connections, and then accepts connections, enabling data exchange.
+List some methods associated with server sockets in TCP.
+
+Methods include bind(), which assigns an address to the socket; listen(), which prepares the server to accept connections; and accept(), which waits for client connections.
+What is the difference between stream and datagram sockets?
+
+Stream sockets use TCP for reliable, connection-based communication, while datagram sockets use UDP for fast, connectionless, but potentially unreliable communication.
+Why is TCP considered reliable?
+
+TCP provides reliability through error checking, acknowledgment, and retransmission of lost packets, ensuring data arrives in the correct order​(EXPT_5).
+
+1. Reliability
+TCP: Reliable. TCP ensures data is delivered accurately and in the correct order, retransmitting lost packets if necessary.
+UDP: Unreliable. UDP does not guarantee delivery, ordering, or error recovery. Lost packets are not retransmitted.
+2. Data Delivery
+TCP: Ordered. Data is delivered in the same sequence as it was sent.
+UDP: Unordered. Data may arrive out of order or even be lost without any notification.
+3. Error Checking
+TCP: Provides robust error-checking and correction mechanisms. If data is corrupted or lost, it will be retransmitted.
+UDP: Provides basic error-checking through checksums, but no mechanism for retransmission or correction.
+4. Flow Control
+TCP: Uses flow control to manage the rate at which data is sent, preventing the sender from overwhelming the receiver.
+UDP: Does not have flow control; the sender sends data at its own rate, regardless of the receiver's capacity.
+5. Speed
+TCP: Slower because it involves more overhead, such as establishing a connection, error checking, and retransmission.
+UDP: Faster due to minimal overhead and no connection establishment or retransmission.
