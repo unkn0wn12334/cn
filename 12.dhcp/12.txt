@@ -1,0 +1,21 @@
+What is DHCP, and what is its main purpose?
+
+DHCP (Dynamic Host Configuration Protocol) automatically assigns IP addresses and network configurations to devices on a network, simplifying network administration​(EXPT_12).
+How does DHCP work?
+
+DHCP operates through a sequence of messages (Discover, Offer, Request, and Acknowledge) between the client and server to assign IP configurations dynamically​(EXPT_12).
+What are the main advantages of DHCP over static IP assignment?
+
+DHCP reduces errors, automates IP management, prevents IP conflicts, and enables efficient reuse of IP addresses with leasing​(EXPT_12).
+What are DHCP message types?
+
+Common DHCP message types include Discover, Offer, Request, and Acknowledge​(EXPT_12).
+How can you install and configure a DHCP server in Ubuntu?
+
+In Ubuntu, install DHCP using sudo apt-get install isc-dhcp-server, configure it in dhcpd.conf, and start the service using sudo service isc-dhcp-server start​(EXPT_12).
+What is a DHCP lease, and how does it work?
+
+A DHCP lease is a temporary assignment of an IP address to a client. The client can use this IP address for a set duration before it’s renewed or reassigned​(EXPT_12).
+Which layer of the OSI model does DHCP operate on?
+
+DHCP operates at the application layer but manages information relevant to the network layer (IP addresses)​(EXPT_12).
