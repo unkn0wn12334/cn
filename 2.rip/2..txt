@@ -1,0 +1,21 @@
+What is the aim of this experiment?
+
+Answer: The aim is to configure a 3-router network using routing protocols like RIP, OSPF, or BGP in Cisco Packet Tracer.
+What are routing protocols?
+
+Answer: Routing protocols determine the path for data packets in a network. They help routers communicate and update routing tables. Common protocols include RIP (Routing Information Protocol), OSPF (Open Shortest Path First), and BGP (Border Gateway Protocol).
+Can you explain the Routing Information Protocol (RIP)?
+
+Answer: RIP is a distance-vector protocol that uses hop count as a metric for path selection. It limits the number of hops to 15, and a hop count of 16 means the route is unreachable. RIP prevents routing loops through split horizon, route poisoning, and hold-down mechanisms.
+What is OSPF, and how does it differ from RIP?
+
+Answer: OSPF is a link-state protocol used within a single autonomous system. Unlike RIP, which uses hop count, OSPF constructs a topology map based on link-state information and calculates the shortest path, making it more efficient for larger networks.
+What are some key differences between RIPv1 and RIPv2?
+
+Answer: RIPv1 does not support subnet masks and broadcasts updates, while RIPv2 supports classless routing with subnet masks and multicasts updates, making it more secure and efficient.
+How is RIP configured in Cisco Packet Tracer?
+
+Answer: RIP is configured by enabling the router, entering configuration mode, and using router rip, followed by version 2 and specifying network addresses connected to the router.
+What is a wildcard mask in OSPF configuration?
+
+Answer: In OSPF, a wildcard mask identifies which parts of an IP address to consider when applying OSPF to interfaces. It specifies which bits are variable, allowing fine-grained control over advertised networks.
