@@ -1,0 +1,21 @@
+What is FTP, and how is it used?
+
+FTP (File Transfer Protocol) is used to transfer files between a client and server on a network. It operates on a client-server model where the client can upload, download, or manage files on the server.
+Describe the main difference between HTTP and HTTPS.
+
+HTTP is a protocol for transferring data over the web, while HTTPS is the secure version of HTTP, which uses SSL/TLS encryption to protect data in transit.
+What are some common FTP commands, and their functions?
+
+put uploads a file to the server, get downloads a file, delete removes a file on the server, and rename changes a file's name on the server.
+Explain how Packet Tracer can be used to analyze FTP performance.
+
+Packet Tracer allows simulation of FTP connections in a network setup, letting users observe data transfer rates, packet delays, and the effect of different configurations on performance.
+Why is FTP considered insecure, and what are alternatives?
+
+FTP transmits data, including credentials, in plaintext, which can be intercepted. Alternatives include FTPS (FTP Secure) and SFTP (SSH File Transfer Protocol), which provide encrypted transfers.
+How does HTTPS improve security over HTTP?
+
+HTTPS uses SSL/TLS to encrypt data between the client and server, ensuring confidentiality, integrity, and authenticity of data exchanged.
+Can multiple clients connect to the same FTP server, and how does it manage connections?
+
+Yes, multiple clients can connect to an FTP server simultaneously. The server assigns a unique session to each client, managing connections typically through port allocations​(EXPT_7).
