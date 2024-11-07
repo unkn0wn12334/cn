@@ -1,0 +1,30 @@
+What is the aim of this experiment?
+
+Answer: The aim is to understand different types of network topologies and transmission media, and to learn how to use Cisco Packet Tracer to simulate these network configurations.
+Can you explain what Cisco Packet Tracer is and why it’s used in networking?
+
+Answer: Cisco Packet Tracer is a network simulation tool that allows users to create, configure, and test network topologies virtually. It’s widely used to simulate network activities, explore routing algorithms, configure servers, and troubleshoot networks. It’s helpful because it eliminates the need for expensive hardware during the learning phase.
+What are the different types of network topologies?
+
+Answer: The main types of topologies are:
+Bus Topology: A single central cable connects all devices, forming a linear structure.
+Star Topology: Devices are connected to a central hub or switch.
+Mesh Topology: Each device is directly connected to every other device.
+Describe the characteristics and design of Bus Topology.
+
+Answer: In a Bus Topology, all devices are connected to a single central cable, known as the backbone or bus. Data sent by one device is available to all devices on the network, but only the intended recipient accepts and processes it. It’s cost-effective but lacks redundancy, meaning if the main cable fails, the entire network is disrupted.
+How is Star Topology structured, and where is it commonly used?
+
+Answer: In Star Topology, each device connects to a central hub or switch. All data passes through this central point. It’s commonly used in Ethernet networks. This topology is reliable since a failure in one cable doesn’t affect the other devices, but if the hub fails, the entire network goes down.
+What is Mesh Topology, and why does it require more cabling than other topologies?
+
+Answer: In Mesh Topology, every device has a dedicated connection to every other device, providing multiple paths for data to travel. This structure requires more cabling because each device needs a separate cable to connect to every other device, increasing reliability and redundancy but also costs.
+Can you compare Bus, Star, and Mesh topologies in terms of reliability and cost?
+
+Answer:
+Bus Topology is low-cost and easy to implement, but it lacks redundancy; if the main cable fails, the network is down.
+Star Topology is more reliable than Bus, as failure in one device or cable doesn’t affect others, but the central hub is a single point of failure.
+Mesh Topology offers high reliability, with multiple paths for data, making it fault-tolerant, but it’s the most expensive due to extensive cabling requirements.
+What is Transmission Media?
+
+Answer: Transmission media are the physical paths, such as cables (copper, fiber optic) or wireless channels, through which data is transmitted in a network. They vary in speed, reliability, and cost, and are chosen based on network requirements and environment.
